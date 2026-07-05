@@ -3,168 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basics of Web Development - Task 1</title>
-    
+    <title>ApexPlanet Task 1 - Web Portal</title>
     <style>
-        /* Resetting default margins and setting a modern font family */
+        /* Modern Design System & Custom Properties */
+        :root {
+            --primary: #2c3e50;
+            --primary-light: #34495e;
+            --secondary: #27ae60;
+            --secondary-hover: #219653;
+            --accent: #3498db;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Core Resets */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
-        /* Base Body Styling */
         body {
-            background-color: #f4f7f6;
-            color: #333;
+            background-color: var(--background);
+            color: var(--text-main);
             line-height: 1.6;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        /* Header Banner Styling */
+        /* Responsive Navigation Bar */
+        nav {
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Banner Section */
         header {
-            background-color: #2c3e50;
-            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
             text-align: center;
-            padding: 2.5rem 1rem;
+            padding: 5rem 1rem;
+            clip-path: ellipse(150% 100% at 50% 0%);
         }
 
         header h1 {
-            margin-bottom: 0.5rem;
-            font-size: 2.5rem;
-        }
-
-        /* Layout Container */
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            flex: 1;
-        }
-
-        /* Content Card Layout & Spacing */
-        .card {
-            background: #ffffff;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .card h2 {
-            color: #2c3e50;
+            font-size: 3rem;
+            font-weight: 800;
             margin-bottom: 1rem;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 0.5rem;
+            letter-spacing: -0.05em;
         }
 
-        /* Link Styling */
-        a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: bold;
+        header p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        a:hover {
-            text-decoration: underline;
-        }
-
-        /* Image Scaling and Layout adjustments */
-        .responsive-img {
+        /* Vertical Stack Layout Container */
+        .main-layout {
+            max-width: 700px; /* Narrower width for elegant vertical display */
+            margin: -3rem auto 4rem auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column; /* Force elements to display one by one vertically */
+            gap: 2rem;
+            flex: 1;
             width: 100%;
-            max-height: 350px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-top: 1rem;
         }
 
-        /* Interactive Elements & Button Styling */
-        .interactive-section {
-            text-align: center;
+        /* Content Cards */
+        .interactive-card {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
         }
 
-        button {
-            background-color: #27ae60;
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .interactive-card h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        /* Custom Link Styling */
+        .text-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: var(--transition);
+        }
+
+        .text-link:hover {
+            color: var(--primary);
+            gap: 0.5rem;
+        }
+
+        /* Simple Design Elements */
+        .simple-design-box {
+            width: 100%;
+            height: 140px;
+            background: #e2e8f0;
+            border-radius: calc(var(--radius) - 4px);
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #cbd5e1;
+        }
+
+        .design-circle {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-bottom: 0.75rem;
+            opacity: 0.85;
+        }
+
+        .design-line-long {
+            width: 40%;
+            height: 8px;
+            background: #94a3b8;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .design-line-short {
+            width: 25%;
+            height: 8px;
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        /* Action Buttons */
+        .action-btn {
+            background-color: var(--secondary);
             color: white;
             border: none;
-            padding: 0.8rem 2rem;
+            padding: 0.8rem 1.5rem;
             font-size: 1rem;
             font-weight: 600;
-            border-radius: 25px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-top: 1.5rem;
-            transition: background-color 0.2s ease, transform 0.1s ease;
+            transition: var(--transition);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: fit-content; /* Fits the text instead of expanding full width */
+            box-shadow: 0 4px 6px -1px rgba(39, 174, 96, 0.2);
         }
 
-        button:hover {
-            background-color: #219653;
+        .action-btn:hover {
+            background-color: var(--secondary-hover);
+            box-shadow: 0 10px 15px -3px rgba(39, 174, 96, 0.3);
         }
 
-        button:active {
+        .action-btn:active {
             transform: scale(0.98);
         }
 
-        /* Footer Styling */
+        /* Footer */
         footer {
-            background-color: #2c3e50;
-            color: #bdc3c7;
+            background-color: var(--primary);
+            color: #94a3b8;
             text-align: center;
-            padding: 1rem;
+            padding: 2rem 1rem;
             margin-top: auto;
-            font-size: 0.9rem;
+            border-top: 4px solid var(--secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal h3 {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .close-btn {
+            background-color: #ef4444;
+            margin-top: 1.5rem;
+        }
+        .close-btn:hover {
+            background-color: #dc2626;
         }
     </style>
 </head>
 <body>
 
+    <nav>
+        <div class="logo">Apex<span>Planet</span></div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#showcase">Showcase</a></li>
+            <li><a href="#interactive">Action</a></li>
+        </ul>
+    </nav>
+    
     <header>
-        <h1>Welcome to My First Webpage</h1>
-        <p>Building the foundation of web development using HTML, CSS, and JavaScript.</p>
+        <h1>Basics of Web Development</h1>
+        <p>Mastering HTML structure, presentation styling with CSS, and interactive system logic using JavaScript.</p>
     </header>
 
-    <main class="container">
+    <main class="main-layout">
         
-        <section class="card">
-            <h2>About This Project</h2>
-            <p>This webpage is designed as part of my web development internship task. It showcases the integration of structural HTML tags, custom CSS layouts, and basic JavaScript actions.</p>
-            
-            <p>Learn more about web standards on the <a href="https://developer.mozilla.org" target="_blank">MDN Web Docs</a>.</p>
-        </section>
+        <article id="about" class="interactive-card">
+            <h2>📁 Core Architecture</h2>
+            <p class="card-desc">This application utilizes semantic HTML markup to lay down accessible structures. It acts as the backbone of modern front-end engineering, standardizing content hierarchy for web browsers.</p>
+            <div>
+                <a href="https://developer.mozilla.org" target="_blank" class="text-link">Explore Developer Docs &rarr;</a>
+            </div>
+        </article>
 
-        <section class="card feature">
-            <h2>Visual Showcase</h2>
-            <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?w=600&auto=format&fit=crop&q=60" alt="Coding Setup Workspace" class="responsive-img">
-        </section>
+        <article id="showcase" class="interactive-card">
+            <h2>🎨 Creative Style Layer</h2>
+            <div class="simple-design-box">
+                <div class="design-circle"></div>
+                <div class="design-line-long"></div>
+                <div class="design-line-short"></div>
+            </div>
+            <p class="card-desc">Custom properties, CSS layouts, and micro-animations decorate the structural layout, ensuring an immersive viewport response across all standard screens.</p>
+        </article>
 
-        <section class="card interactive-section">
-            <h2>Interactive Element</h2>
-            <p>Click the button below to trigger a JavaScript alert message, completing Step 3 of the task guidelines.</p>
-            
-            <button id="alertBtn">Click Me!</button>
-        </section>
+        <article id="interactive" class="interactive-card">
+            <h2>⚡ System Interactivity</h2>
+            <p class="card-desc">Vanilla JavaScript listens to interface hooks, intercepting client actions to run computations or display interactive UI changes dynamically.</p>
+            <button class="action-btn" id="triggerBtn">Execute System Test</button>
+        </article>
 
     </main>
 
+    <div class="modal-overlay" id="sysModal">
+        <div class="modal">
+            <h3>🎉 System Verified!</h3>
+            <p>Task-1 JavaScript trigger callback compiled and executed perfectly. The application is completely interactive.</p>
+            <button class="action-btn close-btn" id="closeBtn">Dismiss Interface</button>
+        </div>
+    </div>
+
     <footer>
-        <p>&copy; 2026 | Developed for Internship Task 1</p>
+        <p>&copy; 2026 ApexPlanet Software Pvt Ltd. All Rights Reserved. | Internship Training Workspace</p>
     </footer>
 
     <script>
-        // Wait until the HTML elements are fully loaded in the browser
         document.addEventListener('DOMContentLoaded', () => {
-            
-            // Select the button element using its ID
-            const alertButton = document.getElementById('alertBtn');
+            const openButton = document.getElementById('triggerBtn');
+            const closeButton = document.getElementById('closeBtn');
+            const modalOverlay = document.getElementById('sysModal');
 
-            // Add a click event listener to the button
-            alertButton.addEventListener('click', () => {
-                // Trigger the built-in browser alert dialog box
-                alert('Hello! Task 1 completed successfully. JavaScript interactivity is working perfectly!');
+            // Open Modal Handler
+            openButton.addEventListener('click', () => {
+                modalOverlay.classList.add('active');
             });
-            
+
+            // Close Modal Handler
+            closeButton.addEventListener('click', () => {
+                modalOverlay.classList.remove('active');
+            });
+
+            // Close modal when clicking outside the container box
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('active');
+                }
+            });
         });
     </script>
 </body>
